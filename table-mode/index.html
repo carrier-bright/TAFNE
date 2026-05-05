@@ -1154,7 +1154,7 @@
                     $.toast({ heading: 'TAFNE', text: 'Bad JSON from Schema Editor', icon: 'error', loader: false, stack: false });
                     return;
                 }
-                if (data.schema === 'ginexys-diagram-v1' && typeof loadDiagramAsSheets === 'function') {
+                if ((data.schema === 'ginexys-diagram-v2' || data.schema === 'ginexys-diagram-v1') && typeof loadDiagramAsSheets === 'function') {
                     loadDiagramAsSheets(data);
                 } else if (typeof loadNetlistAsSheets === 'function') {
                     loadNetlistAsSheets(data);

@@ -67,42 +67,52 @@ function loadNetlistAsSheets(netlist) {
 window.loadNetlistAsSheets = loadNetlistAsSheets;
 
 /**
- * Build sheets from a ginexys-diagram-v1 payload received over CwsBridge.
- * Creates up to four sheets: Components, Wires, Connections, Connectors.
+ * Build sheets from a ginexys-diagram-v2 (or v1) payload received over CwsBridge.
+ * v2 sheets: Components, Wires, Connections, Connectors, BOM, Hierarchy.
+ * v1 falls back gracefully (no BOM/Hierarchy, no layer/path columns).
  */
 function loadDiagramAsSheets(diagram) {
-    if (!diagram || diagram.schema !== 'ginexys-diagram-v1') {
+    var v2 = diagram?.schema === 'ginexys-diagram-v2';
+    var v1 = diagram?.schema === 'ginexys-diagram-v1';
+    if (!v2 && !v1) {
         $.toast({ heading: 'TAFNE', text: 'Invalid diagram format', icon: 'error', loader: false, stack: false });
         return;
     }
-    const t = diagram.topology || {};
+    var t = diagram.topology || {};
 
-    // Components — rich: refdes, symbolType, ports from DOM + GeoEngine
-    const comps = t.components || [];
+    // ── Components ─────────────────────────────────────────────
+    // v2: adds layer column. Grouped elements arrive with type:"module".
+    var comps = t.components || [];
     if (comps.length) {
-        const rows = comps.map(c => ({
-            id:         c.id              || '',
-            refdes:     c.refdes          || '',
-            value:      c.value           || '',
-            symbol:     c.symbolType || c.type || '',
-            domain:     c.domain          || '',
-            x:          c.x     != null   ? String(c.x)    : '',
-            y:          c.y     != null   ? String(c.y)    : '',
-            bbox_w:     c.bbox?.width  != null ? String(c.bbox.width)  : '',
-            bbox_h:     c.bbox?.height != null ? String(c.bbox.height) : '',
-        }));
-        addSheet('Components', parseJsonInput(JSON.stringify(rows)));
+        var compRows = comps.map(function(c) {
+            var row = {
+                id:     c.id                         || '',
+                type:   c.type                       || '',
+                symbol: c.symbol || c.symbolType || c.type || '',
+                refdes: c.refdes                     || '',
+                value:  c.value                      || '',
+                domain: c.domain                     || '',
+                x:      c.x      != null ? String(c.x) : '',
+                y:      c.y      != null ? String(c.y) : '',
+                bbox_w: c.bbox?.width  != null ? String(c.bbox.width)  : '',
+                bbox_h: c.bbox?.height != null ? String(c.bbox.height) : '',
+            };
+            if (v2) row.layer = c.layer || '';
+            return row;
+        });
+        addSheet('Components', parseJsonInput(JSON.stringify(compRows)));
     }
 
-    // Wires — geometry + linearity from GeoEngine
-    const wires = t.wires || [];
+    // ── Wires ───────────────────────────────────────────────────
+    // v2: adds path and layer columns.
+    var wires = t.wires || [];
     if (wires.length) {
-        const rows = wires.map(w => {
-            const ep0 = w.endpoints?.[0];
-            const ep1 = w.endpoints?.[1];
-            return {
-                id:        w.id           || '',
-                color:     w.color        || '',
+        var wireRows = wires.map(function(w) {
+            var ep0 = w.endpoints?.[0];
+            var ep1 = w.endpoints?.[1];
+            var row = {
+                id:        w.id        || '',
+                color:     w.color     || '',
                 width:     w.width  != null ? String(w.width) : '',
                 length:    w.length != null ? String(Math.round(w.length)) : '',
                 linearity: w.linearity != null ? String(w.linearity.toFixed(3)) : '',
@@ -111,37 +121,80 @@ function loadDiagramAsSheets(diagram) {
                 to_x:      ep1?.x != null ? String(ep1.x.toFixed(1)) : '',
                 to_y:      ep1?.y != null ? String(ep1.y.toFixed(1)) : '',
             };
+            if (v2) { row.path = w.path || ''; row.layer = w.layer || ''; }
+            return row;
         });
-        addSheet('Wires', parseJsonInput(JSON.stringify(rows)));
+        addSheet('Wires', parseJsonInput(JSON.stringify(wireRows)));
     }
 
-    // Connections — graph topology (node-to-node edges)
-    const edges = t.graph?.edges || [];
-    if (edges.length) {
-        const rows = edges.map(e => ({
-            id:     e.id     || '',
-            from:   e.from   || '',
-            to:     e.to     || '',
-            color:  e.color  || '',
-            length: e.length != null ? String(Math.round(e.length)) : '',
-        }));
-        addSheet('Connections', parseJsonInput(JSON.stringify(rows)));
+    // ── Connections ────────────────────────────────────────────
+    // v2: top-level topology.connections[]. v1: graph.edges fallback.
+    var connEdges = v2 ? (t.connections || []) : (t.graph?.edges || []);
+    if (connEdges.length) {
+        var connRows = connEdges.map(function(e) {
+            return {
+                id:         e.id         || '',
+                from:       e.from       || '',
+                to:         e.to         || '',
+                color:      e.color      || '',
+                length:     e.length != null ? String(Math.round(e.length)) : '',
+                signalType: e.signalType || '',
+            };
+        });
+        addSheet('Connections', parseJsonInput(JSON.stringify(connRows)));
     }
 
-    // Connectors — pin-points (only if present)
-    const connectors = t.connectors || [];
+    // ── Connectors ─────────────────────────────────────────────
+    var connectors = t.connectors || [];
     if (connectors.length) {
-        const rows = connectors.map(c => ({
-            id:     c.id || '',
-            bbox_x: c.bbox?.x != null ? String(c.bbox.x.toFixed(1)) : '',
-            bbox_y: c.bbox?.y != null ? String(c.bbox.y.toFixed(1)) : '',
-        }));
-        addSheet('Connectors', parseJsonInput(JSON.stringify(rows)));
+        var pinRows = connectors.map(function(c) {
+            return {
+                id:     c.id || '',
+                bbox_x: c.bbox?.x != null ? String(c.bbox.x.toFixed(1)) : '',
+                bbox_y: c.bbox?.y != null ? String(c.bbox.y.toFixed(1)) : '',
+            };
+        });
+        addSheet('Connectors', parseJsonInput(JSON.stringify(pinRows)));
     }
 
+    // ── BOM (v2 only) ──────────────────────────────────────────
+    // Aggregate component counts by symbol type.
+    if (v2 && comps.length) {
+        var bomMap = {};
+        comps.forEach(function(c) {
+            var key = c.symbol || c.type || 'unknown';
+            bomMap[key] = (bomMap[key] || 0) + 1;
+        });
+        var bomRows = Object.keys(bomMap).sort().map(function(sym) {
+            return { symbol: sym, count: String(bomMap[sym]) };
+        });
+        if (bomRows.length) addSheet('BOM', parseJsonInput(JSON.stringify(bomRows)));
+    }
+
+    // ── Hierarchy (v2 only) ────────────────────────────────────
+    // User-defined layer groups from Structure view.
+    if (v2) {
+        var groups = diagram.structure?.groups || [];
+        if (groups.length) {
+            var hierRows = groups.map(function(g) {
+                return {
+                    id:       g.id   || '',
+                    name:     g.name || '',
+                    type:     'module',
+                    children: (g.children || []).join(', '),
+                };
+            });
+            addSheet('Hierarchy', parseJsonInput(JSON.stringify(hierRows)));
+        }
+    }
+
+    var sheetCount = comps.length + wires.length + connEdges.length;
     $.toast({
         heading: 'Diagram Loaded',
-        text: `${comps.length} components · ${wires.length} wires · ${edges.length} connections`,
+        text: (v2 ? '[v2] ' : '[v1] ') +
+              comps.length + ' components · ' +
+              wires.length + ' wires · ' +
+              connEdges.length + ' connections',
         icon: 'success', loader: false, stack: false,
     });
 }
