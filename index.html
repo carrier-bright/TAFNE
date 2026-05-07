@@ -244,6 +244,7 @@
     <script src="src/js/features/nodeConfigPanel.js"></script>
     <script src="src/js/features/nodeExecutor.js"></script>
     <script src="src/js/features/nodeEditor.js"></script>
+    <script src="src/js/core/engine.js"></script>
 
     <!-- TAFNE CSS -->
     <link rel="stylesheet" href="src/css/tableEditor.css">
@@ -1275,6 +1276,7 @@
     <!-- ==================== CWS IPC: SCHEMA EDITOR BRIDGE ==================== -->
     <script>
         (function () {
+            if (!window.CwsBridge) return;
             // Reveal back-annotate button only when embedded in OsShell
             if (CwsBridge.isEmbedded) {
                 var btn = document.getElementById('backAnnotateBtn');
