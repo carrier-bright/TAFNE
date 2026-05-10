@@ -561,6 +561,9 @@ tr.accordion-header.actives > td {
 .tafne-ruler-wrap {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 }
 
 /* Top row: corner + column-ruler viewport */
@@ -634,6 +637,8 @@ tr.accordion-header.actives > td {
     color: var(--t-text-muted);
     user-select: none;
     flex-shrink: 0;
+    cursor: pointer;
+    position: relative;
     transition: background 0.1s, color 0.1s;
 }
 
@@ -648,7 +653,16 @@ tr.accordion-header.actives > td {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     color: var(--t-text-muted);
     user-select: none;
+    cursor: pointer;
+    position: relative;
     transition: background 0.1s, color 0.1s;
+}
+
+/* Hover */
+.tafne-col-ruler .ruler-seg:hover,
+.tafne-row-ruler .ruler-seg:hover {
+    background: var(--t-active-bg);
+    color: var(--t-primary);
 }
 
 /* Active highlight when cell(s) selected */
@@ -657,3 +671,37 @@ tr.accordion-header.actives > td {
     color: var(--t-primary);
     font-weight: 600;
 }
+
+/* Drag source — segment being reordered (double-click-drag) */
+.ruler-seg.ruler-drag-src {
+    background: var(--t-primary);
+    color: #fff;
+    opacity: 0.75;
+}
+
+/* Drop indicators — show insertion line via pseudo-element */
+.tafne-row-ruler .ruler-seg.ruler-drop-before::before,
+.tafne-row-ruler .ruler-seg.ruler-drop-after::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--t-primary);
+    z-index: 2;
+}
+.tafne-row-ruler .ruler-seg.ruler-drop-before::before { top: -2px; }
+.tafne-row-ruler .ruler-seg.ruler-drop-after::after   { bottom: -2px; }
+
+.tafne-col-ruler .ruler-seg.ruler-drop-before::before,
+.tafne-col-ruler .ruler-seg.ruler-drop-after::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--t-primary);
+    z-index: 2;
+}
+.tafne-col-ruler .ruler-seg.ruler-drop-before::before { left: -2px; }
+.tafne-col-ruler .ruler-seg.ruler-drop-after::after   { right: -2px; }

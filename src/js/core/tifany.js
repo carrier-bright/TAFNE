@@ -134,6 +134,8 @@ $(function () {
                     window.selectedCells.push(this);
                     lastSelectedCell = this;
                 }
+                // Any direct cell interaction scopes the element type to cell
+                $('#elementType').val('cell');
             }
         });
 
@@ -154,6 +156,8 @@ $(function () {
                     lastSelectedCell = endCell;
                     window.selectionHeadCell = endCell;
                 }
+                // Drag-select always scopes to cell granularity
+                $('#elementType').val('cell');
                 // (Draw mode operates via the Draw Canvas panel, not via cell selection)
             }
         });

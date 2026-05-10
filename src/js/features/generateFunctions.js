@@ -10,7 +10,7 @@ function generateTabs(tableHtml) {
     const $tables = $parsed.find('table');
 
     if ($tables.length === 0) {
-        $('#tableContainer').html(tableHtml);
+        $('#tableContainer')[0].innerHTML = tableHtml;
         setupTableInteraction();
         return;
     }
@@ -33,7 +33,7 @@ function generateTabs(tableHtml) {
             `<div class="panel">${spHtml}${tableOuterHtml}</div>`;
     });
 
-    $('#tableContainer').html(blocksHtml);
+    $('#tableContainer')[0].innerHTML = blocksHtml;
 
     setupTableInteraction();
 
