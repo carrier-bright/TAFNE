@@ -76,6 +76,9 @@ $(function () {
                 window.selectedCells = [];
                 window.selectionAnchorCell = null;
                 window.selectionHeadCell = null;
+                if (typeof window.refreshHistoryUI === 'function') {
+                    window.refreshHistoryUI();
+                }
             }
 
             // Mark table as the active interaction context.

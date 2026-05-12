@@ -3,106 +3,116 @@
 // 2. TABLE HISTORY MANAGER
 // ===================================================================================
 class TableHistoryManager {
-    constructor(maxHistory = 50) {
-        this.history = [];
-        this.currentIndex = -1;
+    constructor(maxHistory = 100) {
+        this.histories = {};
         this.maxHistory = maxHistory;
         this.isRestoring = false; // Flag to prevent saving during undo/redo
     }
 
-    saveState(tableHtml) {
+    _getHistory(id) {
+        if (!id) return null;
+        if (!this.histories[id]) {
+            this.histories[id] = {
+                history: [],
+                currentIndex: -1
+            };
+        }
+        return this.histories[id];
+    }
+
+    saveState(tableHtml, id) {
+        if (!id) return;
+
         // Don't save if we're restoring a state
         if (this.isRestoring) return;
 
         // Don't save empty states
         if (!tableHtml || tableHtml.trim() === '') return;
 
+        const historyState = this._getHistory(id);
+        if (!historyState) return;
+
         // Don't save if it's the same as the current state
-        if (this.currentIndex >= 0 && this.history[this.currentIndex] === tableHtml) {
+        if (historyState.currentIndex >= 0 && historyState.history[historyState.currentIndex] === tableHtml) {
             return;
         }
 
         // Remove future states if we're not at the end
-        this.history = this.history.slice(0, this.currentIndex + 1);
-
-        this.history.push(tableHtml);
+        historyState.history = historyState.history.slice(0, historyState.currentIndex + 1);
+        historyState.history.push(tableHtml);
 
         // Limit history size
-        if (this.history.length > this.maxHistory) {
-            this.history.shift();
+        if (historyState.history.length > this.maxHistory) {
+            historyState.history.shift();
+        }
+
+        historyState.currentIndex = historyState.history.length - 1;
+
+        console.log(`History saved for ${id}. Current index: ${historyState.currentIndex}, Total states: ${historyState.history.length}`);
+        this.updateHistoryButtons(id);
+    }
+
+    undo(id) {
+        const historyState = this._getHistory(id);
+        if (!historyState || !this.canUndo(id)) {
+            console.log(`Cannot undo - at beginning of history for ${id}`);
+            return null;
+        }
+
+        historyState.currentIndex--;
+        console.log(`Undo to index: ${historyState.currentIndex} for ${id}`);
+        this.updateHistoryButtons(id);
+        return historyState.history[historyState.currentIndex];
+    }
+
+    redo(id) {
+        const historyState = this._getHistory(id);
+        if (!historyState || !this.canRedo(id)) {
+            console.log(`Cannot redo - at end of history for ${id}`);
+            return null;
+        }
+
+        historyState.currentIndex++;
+        console.log(`Redo to index: ${historyState.currentIndex} for ${id}`);
+        this.updateHistoryButtons(id);
+        return historyState.history[historyState.currentIndex];
+    }
+
+    canUndo(id) {
+        const historyState = this.histories[id];
+        return !!historyState && historyState.currentIndex > 0;
+    }
+
+    canRedo(id) {
+        const historyState = this.histories[id];
+        return !!historyState && historyState.currentIndex < historyState.history.length - 1;
+    }
+
+    clear(id) {
+        if (id) {
+            delete this.histories[id];
         } else {
-            this.currentIndex++;
+            this.histories = {};
         }
-
-        console.log(`History saved. Current index: ${this.currentIndex}, Total states: ${this.history.length}`);
-        // $('.undoState').text(`States: ${this.currentIndex}`);
-        this.updateHistoryButtons();
+        this.updateHistoryButtons(id);
+        console.log(`History cleared for ${id || 'all sheets'}`);
     }
 
-    undo() {
-        if (this.canUndo()) {
-            this.currentIndex--;
-            console.log(`Undo to index: ${this.currentIndex}`);
-            this.updateHistoryButtons();
-            return this.history[this.currentIndex];
-        }
-        console.log('Cannot undo - at beginning of history');
-        return null;
-    }
+    updateHistoryButtons(id) {
+        const historyState = this.histories[id] || null;
+        const undoCount = historyState ? historyState.currentIndex : 1;
+        const redoCount = historyState ? historyState.history.length - historyState.currentIndex - 1 : 0;
 
-    redo() {
-        if (this.canRedo()) {
-            this.currentIndex++;
-            console.log(`Redo to index: ${this.currentIndex}`);
-            this.updateHistoryButtons();
-            return this.history[this.currentIndex];
-        }
-        console.log('Cannot redo - at end of history');
-        return null;
-    }
+        $('.undoState').text(`${undoCount}`);
+        $('.redoState').text(`${redoCount}`);
 
-    canUndo() {
-        return this.currentIndex > 0;
-    }
-
-    canRedo() {
-        return this.currentIndex < this.history.length - 1;
-    }
-
-    clear() {
-        this.history = [];
-        this.currentIndex = -1;
-        this.updateHistoryButtons();
-        console.log('History cleared');
-    }
-
-    updateHistoryButtons() {
-        const undoCount = this.currentIndex;
-        const redoCount = this.history.length - this.currentIndex - 1;
-        
-        if (this.currentIndex != -1) {
-            $('.undoState').text(`${undoCount}`)
-        };
-        if(this.currentIndex == -1){
-            $('.redoState').text(`${redoCount}`)
-        };
-        
         // Enable/disable buttons
-        $('.undoHistory').prop('disabled', !this.canUndo());
-        $('.redoHistory').prop('disabled', !this.canRedo());
-        
+        $('.undoHistory').prop('disabled', !this.canUndo(id));
+        $('.redoHistory').prop('disabled', !this.canRedo(id));
+
         // Update button appearance
-        if (this.canUndo()) {
-            $('.undoHistory').css('opacity', '1');
-        } else {
-            $('.undoHistory').css('opacity', '0.5');
-        }
-        
-        if (this.canRedo()) {
-            $('.redoHistory').css('opacity', '1');
-        } else {
-            $('.redoHistory').css('opacity', '0.5');
-        }
+        $('.undoHistory').css('opacity', this.canUndo(id) ? '1' : '0.5');
+        $('.redoHistory').css('opacity', this.canRedo(id) ? '1' : '0.5');
     }
 }
 
@@ -113,6 +123,17 @@ window.historyManager = new TableHistoryManager();
 // 3. HISTORY FUNCTIONS
 // ===================================================================================
 
+function getActiveHistoryId() {
+    return window.currentTable ? $(window.currentTable).attr('data-tifany-id') : $('#tableContainer table').first().attr('data-tifany-id');
+}
+
+function refreshHistoryUI() {
+    const activeId = getActiveHistoryId();
+    if (activeId && window.historyManager) {
+        window.historyManager.updateHistoryButtons(activeId);
+    }
+}
+
 function restoreActiveTable(activeId) {
     // Try to restore the previously active table by data-tifany-id
     if (activeId) {
@@ -121,11 +142,12 @@ function restoreActiveTable(activeId) {
     } else {
         window.currentTable = $('#tableContainer table')[0];
     }
+    refreshHistoryUI();
 }
 
 function performUndo() {
-    const activeId = window.currentTable ? $(window.currentTable).attr('data-tifany-id') : null;
-    const state = window.historyManager.undo();
+    const activeId = window.currentTable ? $(window.currentTable).attr('data-tifany-id') : $('#tableContainer table').first().attr('data-tifany-id');
+    const state = window.historyManager.undo(activeId);
     if (state) {
         window.historyManager.isRestoring = true;
 
@@ -166,8 +188,8 @@ function performUndo() {
 }
 
 function performRedo() {
-    const activeId = window.currentTable ? $(window.currentTable).attr('data-tifany-id') : null;
-    const state = window.historyManager.redo();
+    const activeId = window.currentTable ? $(window.currentTable).attr('data-tifany-id') : $('#tableContainer table').first().attr('data-tifany-id');
+    const state = window.historyManager.redo(activeId);
     if (state) {
         window.historyManager.isRestoring = true;
 
@@ -208,10 +230,13 @@ function performRedo() {
 }
 
 function saveCurrentState() {
-    if (window.currentTable && !window.historyManager.isRestoring) {
+    if (!window.historyManager.isRestoring) {
+        const activeId = window.currentTable ? $(window.currentTable).attr('data-tifany-id') : $('#tableContainer table').first().attr('data-tifany-id');
+        if (!activeId) return;
+
         const state = $('#tableContainer').html();
-        window.historyManager.saveState(state);
-        console.log('Current state saved');
+        window.historyManager.saveState(state, activeId);
+        console.log(`Current state saved for ${activeId}`);
     }
 }
 
@@ -219,3 +244,5 @@ function saveCurrentState() {
 window.performUndo = performUndo;
 window.performRedo = performRedo;
 window.saveCurrentState = saveCurrentState;
+window.refreshHistoryUI = refreshHistoryUI;
+window.getActiveHistoryId = getActiveHistoryId;

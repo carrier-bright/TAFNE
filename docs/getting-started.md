@@ -2,7 +2,13 @@
 
 <img src="../tafne-demo.gif" alt="TAFNE demo" style="width:100%">
 
-TAFNE (Table Formatter and Node Editor) is a comprehensive tool designed for parsing, editing, and formatting HTML tables. Whether you are converting raw data into a structured grid or performing complex data transformations, TAFNE provides a visual interface to streamline the process.
+TiFANY (Table Formatter and Node Editor) is a comprehensive tool designed for parsing, editing, and formatting HTML tables. Whether you are converting raw data into a structured grid or performing complex data transformations, TAFNE provides a visual interface to streamline the process.
+
+Content
+[Functions](.\functions.md)
+[Styles and ID](.\styles-and-id.md)
+[Modes](.\modes.md)
+
 
 ## core Workflow
 

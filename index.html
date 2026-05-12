@@ -5,184 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- ── Icons ── -->
-    <link rel="icon" type="image/png" href="/assets/images/Ginexys_Logo.png">
-
-    <!-- ── Primary SEO ── -->
-    <title>Free Online Table Editor — Edit, Join, Validate Tables in Browser · GINEXYS</title>
-    <meta name="description"
-        content="Free browser-based table tool with 3 modes: Table Editing (style, transpose, merge, drag-and-drop), Node Editor (VLOOKUP, join CSV files, filter, API fetch, formula), and Lab Mode (validate, analyze, transform). No Excel, no install.">
-    <meta name="keywords"
-        content="table formatter, free online table editor, CSV to markdown, HTML to markdown table, VLOOKUP online, join CSV files online, filter table online, validate CSV online, transpose CSV without Excel, SQL insert from CSV, merge cells markdown table, markdown table generator, table editor no Excel, TAFNE, GINEXYS">
-    <meta name="author" content="GINEXYS">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://ginexys.com/tools/table-formatter/index.html">
-
-    <!-- ── Open Graph ── -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="GINEXYS">
-    <meta property="og:title" content="Free Online Table Editor — Edit, Join & Validate Tables · GINEXYS">
-    <meta property="og:description"
-        content="3-mode browser table tool: visually edit CSV/HTML tables, run VLOOKUP and joins in the Node Editor, and validate/transform data in Lab Mode. Free, private, no install.">
-    <meta property="og:url" content="https://ginexys.com/tools/table-formatter/index.html">
-    <meta property="og:image" content="https://ginexys.com/assets/images/og-image.png">
-    <meta property="og:locale" content="en_US">
-
-    <!-- ── Twitter / X Card ── -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Online Table Editor — Edit, Join & Validate · GINEXYS">
-    <meta name="twitter:description"
-        content="Table Editing + Node Editor (VLOOKUP, Join, Filter, API) + Lab Mode (Validate, Analyze, Transform). Free, browser-only, no install.">
-    <meta name="twitter:image" content="https://ginexys.com/assets/images/og-image.png">
-    <meta name="twitter:site" content="@GINEXYS">
-
-    <!-- ── Structured Data ── -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "SoftwareApplication",
-          "@id": "https://ginexys.com/tools/table-formatter/#software",
-          "name": "Table Formatter",
-          "alternateName": "TAFNE",
-          "url": "https://ginexys.com/tools/table-formatter/index.html",
-          "applicationCategory": "DeveloperApplication",
-          "operatingSystem": "Web Browser",
-          "description": "Free browser-based table tool with three modes: Table Editing Mode for visual editing, cell merging, transpose, column toggle, and styling; Node Editor Mode for VLOOKUP, joining CSV files by column, filtering, API data fetching, and formula evaluation; and Lab Mode for CSV validation, data analysis, and data transformation. No installation, no account, all processing happens locally in the browser.",
-          "applicationSubCategory": "Table Editor, Data Transformation, CSV Tool",
-          "featureList": [
-            "Table Editing Mode: visual drag-and-drop editor",
-            "Table Editing Mode: cell merging, row/column operations",
-            "Table Editing Mode: transpose table",
-            "Table Editing Mode: column toggle and styling",
-            "Table Editing Mode: apply CSS classes and IDs",
-            "Table Editing Mode: export to HTML, Markdown, CSV, JSON, SQL",
-            "Node Editor Mode: VLOOKUP between two tables",
-            "Node Editor Mode: join CSV files by common column",
-            "Node Editor Mode: filter table data without Excel",
-            "Node Editor Mode: fetch data from API into table",
-            "Node Editor Mode: formula evaluation across columns",
-            "Lab Mode: validate CSV data and find errors",
-            "Lab Mode: analyze data patterns and statistics",
-            "Lab Mode: transform and clean table data",
-            "Parse HTML, ASCII, CSV, and plain text input",
-            "Monaco-powered code output editor",
-            "Dark and light theme",
-            "Local-first privacy — data never leaves the browser"
-          ],
-          "author": {
-            "@type": "Organization",
-            "name": "GINEXYS",
-            "url": "https://ginexys.com"
-          },
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "GINEXYS",
-            "url": "https://ginexys.com"
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://ginexys.com/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Table Formatter",
-              "item": "https://ginexys.com/tools/table-formatter/index.html"
-            }
-          ]
-        }
-      ]
-    }
-    </script>
-
-
-    <!-- ── FAQ Structured Data (AEO — Answer Engine Optimization) ── -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How do I VLOOKUP between two CSV files without Excel?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Use Ginexys Table Formatter's Node Editor mode. Upload both CSV files as tables, add a VLookup node, select the matching column from each table, and the joined result is generated instantly in your browser. No Excel, no Python, no install required. Open the tool at ginexys.com/tools/table-formatter."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I convert an HTML table to Markdown online?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Paste your HTML into Ginexys Table Formatter, select Markdown as the export format, and copy the result. It works for Docusaurus, GitBook, GitHub READMEs, and any Markdown-based documentation platform. The conversion runs entirely in your browser at ginexys.com/tools/table-formatter."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I join two CSV files by a common column online?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Ginexys Table Formatter's Node Editor includes a Join node that merges two CSV tables by a shared column key — equivalent to a SQL JOIN or Excel VLOOKUP. Load both files, connect a Join node, pick the key column, and download the result. No software needed."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I validate CSV data in the browser without uploading it?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Use Lab Mode in Ginexys Table Formatter. It validates your CSV for errors (missing fields, type mismatches, duplicate rows), analyzes data patterns, and lets you transform or clean the data — all locally in your browser. Your data never leaves your device."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I transpose a CSV or table without Excel?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "In Ginexys Table Formatter's Table Editing Mode, load your CSV or paste your table and use the Transpose operation to flip rows and columns instantly. The result can be exported back as CSV, HTML, Markdown, or JSON."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I generate SQL INSERT statements from a CSV or spreadsheet?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Load your CSV into Ginexys Table Formatter, then select SQL as the export format. It generates ready-to-run INSERT statements from your table data — useful for seeding Supabase, Prisma, MySQL, or any SQL database directly from a spreadsheet."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does the Ginexys table formatter work offline?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. All three modes — Table Editing, Node Editor, and Lab Mode — run entirely in your browser. No files are uploaded to any server. You can use the tool with no internet connection after the page has loaded."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do I filter table rows without Excel or Python?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Use the Node Editor mode in Ginexys Table Formatter. Add a Filter node, set your condition (e.g., column value equals, contains, or is greater than), and the filtered rows are returned as a new table you can export or chain into further transformations."
-          }
-        }
-      ]
-    }
-    </script>
+    <!-- Original template by https://ginexys.com -->
 
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
@@ -193,10 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css"
         integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <!-- OS Bridge (no-op when standalone, connects to kernel when in iframe) -->
-    <script src="/assets/os/contracts.js"></script>
-    <script src="/assets/os/bridge.js"></script>
 
     <!-- jQuery (must be before Bootstrap JS and TIFANY scripts) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -224,8 +43,7 @@
     <script src="src/js/components/tableRuler.js"></script>
     <script src="src/js/components/tableHistory.js"></script>
     <script src="src/js/components/cellStore.js"></script>
-    <script src="src/js/components/nodeGraph.js"></script>
-    <script src="src/js/components/nodeTypes.js"></script>
+
     <!-- TAFNE Features -->
     <script src="src/js/features/applyClassID.js"></script>
     <script src="src/js/features/dragDrop.js"></script>
@@ -234,27 +52,12 @@
     <script src="src/js/features/tableManipulation.js"></script>
     <script src="src/js/features/tableOperations.js"></script>
     <script src="src/js/features/tifanyTabs.js"></script>
-    <script src="src/js/features/labFunctions.js"></script>
-    <script src="src/js/features/labMode.js"></script>
-    <script src="src/js/features/sheetManager.js"></script>
-    <script src="src/js/features/nodeRenderer.js"></script>
-    <script src="src/js/features/nodeInteractions.js"></script>
-    <script src="src/js/features/nodeFormulaParser.js"></script>
-    <script src="src/js/features/nodePalette.js"></script>
-    <script src="src/js/features/nodeConfigPanel.js"></script>
-    <script src="src/js/features/nodeExecutor.js"></script>
-    <script src="src/js/features/nodeEditor.js"></script>
+
     <script src="src/js/core/engine.js"></script>
 
     <!-- TAFNE CSS -->
     <link rel="stylesheet" href="src/css/tableEditor.css">
     <link rel="stylesheet" href="src/css/tifanyUI.css">
-    <link rel="stylesheet" href="src/css/nodeEditor.css">
-    <!-- GINEXYS Gate + Star Nudge -->
-    <link rel="stylesheet" href="/assets/css/ginexys-modals.css">
-    <script src="/assets/js/ginexys-gate.js" defer></script>
-    <!-- Shared portfolio CSS (header/logo styles) -->
-    <link rel="stylesheet" href="../../assets/css/portfolio.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -269,32 +72,20 @@
         <div class="logo">
             <h1>
                 <a href="../../index.html" style="text-decoration:none; color:inherit;">
-                    GINEXYS
+                    TIFANY
                 </a>
             </h1>
         </div>
         <nav class="nav" style="flex:1;">
             <a href="https://github.com/canworkstudios/TAFNE" target="_blank" rel="noopener noreferrer"
                 class="nav-link">GitHub</a>
-            <a href="docs/getting-started.html" target="_blank" rel="noopener noreferrer" class="nav-link"
+            <a href="docs/getting-started.md" target="_blank" rel="noopener noreferrer" class="nav-link"
                 title="Getting Started guide"
                 style="margin-left:auto; border: 2px solid; border-radius: 50%;font-size: 0.6rem;">?</a>
         </nav>
-        <!-- CWS: back-annotate to Schema Editor (hidden when standalone) -->
-        <button id="backAnnotateBtn" class="btn btn-sm" title="Back-annotate component labels to Schema Editor"
-            style="display:none; background: rgba(79, 172, 254, 0.15); border: 1px solid rgba(79, 172, 254, 0.4); color: #4facfe; font-weight: 600; margin-left: 12px;">
-            <i class="fas fa-reply"></i> Back-Annotate
-        </button>
+
     </header>
-    <!-- ==================== FIRST-VISIT BANNER ==================== -->
-    <div id="tafne-welcome-banner"
-        style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--t-accent,#0d6efd);color:#fff;font-size:12px;padding:8px 16px;align-items:center;gap:12px;justify-content:center;">
-        First time? &rarr; <a href="docs/getting-started.html" target="_blank" rel="noopener noreferrer"
-            style="color:#fff;font-weight:600;text-decoration:underline;">Quick Start Guide</a>
-        <button onclick="document.getElementById('tafne-welcome-banner').style.display='none';"
-            style="background:none;border:none;color:#fff;font-size:16px;line-height:1;cursor:pointer;padding:0 4px;">&times;</button>
-    </div>
-    <script>if (!localStorage.getItem('tafne_visited')) { document.getElementById('tafne-welcome-banner').style.display = 'flex'; localStorage.setItem('tafne_visited', '1'); }</script>
+
     <!-- ==================== 3-PANEL APP ==================== -->
     <div class="tifany-app">
 
@@ -328,24 +119,6 @@
             <button id="selectToolToggle" class="theme-toggle-btn active"
                 title="Table Mode — visual cell editor (click, Shift+click, Ctrl+click to select)">
                 <i class="fas fa-table"></i>
-            </button>
-
-            <!-- Node Editor -->
-            <button id="nodeEditorToggle" class="theme-toggle-btn"
-                title="Node Editor — build data pipelines with joins, filters and transforms">
-                <i class="fas fa-project-diagram"></i>
-            </button>
-
-            <!-- Lab Mode -->
-            <button id="labModeToggle" class="theme-toggle-btn"
-                title="Lab Mode — validate, transform &amp; analyze table data">
-                <i class="fas fa-database"></i>
-            </button>
-
-            <!-- CWS: back-annotate to Schema Editor (hidden when standalone) -->
-            <button id="backAnnotateBtn" class="theme-toggle-btn"
-                title="Back-annotate component labels to Schema Editor" style="display:none;">
-                <i class="fas fa-reply"></i>
             </button>
         </div>
 
@@ -568,119 +341,6 @@
                 </div>
             </section>
 
-            <!-- Node Editor Canvas (shown when Node Editor mode is active) -->
-            <div id="nodeEditorCanvas" class="node-editor-canvas">
-                <div class="node-editor-header">
-                    <span><i class="fas fa-project-diagram"></i> Node Editor</span>
-                    <div class="node-editor-header-actions">
-                        <button id="neAddFromSheet" class="btn btn-sm btn-outline-primary"
-                            title="Load current sheet as a node">
-                            <i class="fas fa-plus"></i> Load Sheet
-                        </button>
-                        <button id="neAddNode" class="btn btn-sm btn-outline-secondary" title="Add operator node">
-                            <i class="fas fa-shapes"></i> Add Node ▾
-                        </button>
-                        <button id="neRunGraph" class="btn btn-sm btn-primary"
-                            title="Run graph — execute all operator nodes">
-                            <i class="fas fa-play"></i> Run
-                        </button>
-                        <button id="neResetRun" class="btn btn-sm btn-outline-warning"
-                            title="Reset all node exec states back to idle (use if Run gets stuck)">
-                            <i class="fas fa-undo"></i> Reset
-                        </button>
-                        <button id="neBuildTable" class="btn btn-sm btn-success" title="Build table from selected node">
-                            <i class="fas fa-table"></i> Build Table
-                        </button>
-                        <button id="neFitView" class="btn btn-sm btn-outline-secondary" title="Fit all nodes into view">
-                            <i class="fas fa-compress-arrows-alt"></i> Fit
-                        </button>
-                        <button id="neExit" class="btn btn-sm btn-outline-secondary">Exit</button>
-                    </div>
-                    <!-- Palette flyout: sibling of actions so overflow-x:auto on actions doesn't clip it -->
-                    <div id="nePalette" class="ne-palette" style="display:none;"></div>
-                </div>
-                <div id="nodeEditorViewport">
-                    <!-- Visible composite canvas -->
-                    <canvas id="nodeCanvasLayer"></canvas>
-                    <!-- Offscreen render buffers (hidden) -->
-                    <canvas id="neBgBuffer"></canvas>
-                    <canvas id="neStaticBuffer"></canvas>
-                    <!-- HTML overlay for node cards -->
-                    <div id="nodeHtmlLayer"></div>
-                    <!-- Minimap -->
-                    <div class="node-editor-minimap">
-                        <canvas id="neMinimapCanvas" width="160" height="100"></canvas>
-                    </div>
-                    <!-- Config panel (slides in from right) -->
-                    <div id="neConfigPanel" class="ne-config-panel" style="display:none;"></div>
-                </div>
-            </div>
-
-            <!-- Lab Canvas (shown when Lab Mode is active, covers table view) -->
-            <div id="labCanvas" class="draw-canvas">
-                <div class="draw-canvas-header">
-                    <span><i class="fas fa-flask"></i> Lab Mode &mdash; validate, transform &amp; analyze table
-                        data</span>
-                    <div class="draw-canvas-header-actions">
-                        <button id="labClearAll" class="btn btn-sm btn-outline-danger" title="Clear pipeline">
-                            <i class="fas fa-trash"></i> Clear
-                        </button>
-                        <button id="exitLabMode" class="btn btn-sm btn-outline-secondary">Exit</button>
-                    </div>
-                </div>
-                <div class="draw-canvas-body" id="lab-canvas-body">
-                    <!-- TOP PANE: step builder -->
-                    <div class="lab-step-pane">
-                        <!-- Mode tabs + action buttons -->
-                        <div class="lab-tab-bar">
-                            <button class="lab-tab active" data-mode="validate">Validate</button>
-                            <button class="lab-tab" data-mode="transform">Transform</button>
-                            <button class="lab-tab" data-mode="analyze">Analyze</button>
-                            <div class="lab-tab-spacer"></div>
-                            <button id="labRecipeToggle" class="btn btn-xs btn-outline-secondary lab-recipe-btn">Recipe
-                                ▾</button>
-                            <button id="labRunBtn" class="btn btn-sm btn-primary lab-run-btn">
-                                <i class="fas fa-play"></i> Run
-                            </button>
-                        </div>
-                        <!-- Function picker (inline, hidden by default) -->
-                        <div id="labFnPicker" class="lab-fn-picker" style="display:none;"></div>
-                        <!-- Step list (scrollable) -->
-                        <div id="labStepList" class="lab-step-list">
-                            <div class="lab-step-empty">No steps yet &mdash; click <strong>+ Add Step</strong> to begin.
-                            </div>
-                        </div>
-                        <!-- Add Step bar -->
-                        <div class="lab-add-step-bar">
-                            <button id="labAddStep" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-plus"></i> Add Step
-                            </button>
-                        </div>
-                        <!-- Recipe section: Monaco read-only (hidden by default) -->
-                        <div id="labRecipeSection" class="lab-recipe-section" style="display:none;">
-                            <div id="monaco-draw-container" class="draw-monaco-container lab-recipe-monaco"></div>
-                        </div>
-                    </div>
-                    <!-- Drag-resize splitter (same ID — resize JS reuses it) -->
-                    <div id="drawResizeHandle" class="draw-resize-handle" title="Drag to resize"></div>
-                    <!-- BOTTOM PANE: result -->
-                    <div class="draw-preview">
-                        <div class="draw-preview-label">
-                            Result
-                            <span id="labResultBadge" class="lab-result-badge" style="display:none;"></span>
-                        </div>
-                        <div id="labResultContent" class="draw-preview-content">
-                            <em style="font-size:11px; color:var(--t-text-muted);">Run a pipeline to see results</em>
-                        </div>
-                        <div id="labSubmitRow" class="lab-submit-row" style="display:none;">
-                            <button id="labSubmitBtn" class="btn btn-sm btn-success">
-                                <i class="fas fa-table"></i> Submit &rarr; New Sheet
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Center header bar -->
             <div class="center-header">
                 <span>Table Viewer</span>
@@ -836,9 +496,9 @@
     <div id="tabContextMenu" class="cell-controls" style="display:none">
         <h6>Tab</h6>
         <div class="cell-op">
-            <button id="tabCtxRename"    class="btn btn-sm btn-outline-primary py-0 px-1">Rename</button>
+            <button id="tabCtxRename" class="btn btn-sm btn-outline-primary py-0 px-1">Rename</button>
             <button id="tabCtxAddBefore" class="btn btn-sm btn-outline-secondary py-0 px-1">Add Before</button>
-            <button id="tabCtxAddAfter"  class="btn btn-sm btn-outline-secondary py-0 px-1">Add After</button>
+            <button id="tabCtxAddAfter" class="btn btn-sm btn-outline-secondary py-0 px-1">Add After</button>
         </div>
         <h6>Delete</h6>
         <div class="cell-op">
@@ -858,13 +518,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Selected Cells</h5>
-                    <small class="text-muted ml-2" id="multiCellEditFmt" style="font-size:11px;align-self:center"></small>
+                    <small class="text-muted ml-2" id="multiCellEditFmt"
+                        style="font-size:11px;align-self:center"></small>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body p-0">
-                    <div id="multiCellMonacoContainer" style="height:260px;border-bottom:1px solid var(--t-border,#ddd)"></div>
+                    <div id="multiCellMonacoContainer"
+                        style="height:260px;border-bottom:1px solid var(--t-border,#ddd)"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -1228,7 +890,7 @@
         })();
     </script>
 
-    <!-- ==================== DOWNLOAD + USAGE COUNTER ==================== -->
+    <!-- ==================== DOWNLOAD ==================== -->
     <script>
         (function () {
             // ── Download button ──
@@ -1257,119 +919,8 @@
                     URL.revokeObjectURL(url);
                 });
             }
-
-            // ── Usage counter (localStorage + silent beacon) ──
-            function recordUsage() {
-                try {
-                    var count = parseInt(localStorage.getItem('tifany_gen_count') || '0', 10) + 1;
-                    localStorage.setItem('tifany_gen_count', String(count));
-                } catch (e) { }
-            }
-
-            var genBtn = document.getElementById('generateCode');
-            if (genBtn) {
-                genBtn.addEventListener('click', recordUsage);
-            }
         })();
     </script>
-
-    <!-- ==================== CWS IPC: SCHEMA EDITOR BRIDGE ==================== -->
-    <script>
-        (function () {
-            if (!window.CwsBridge) return;
-            // Reveal back-annotate button only when embedded in OsShell
-            if (CwsBridge.isEmbedded) {
-                var btn = document.getElementById('backAnnotateBtn');
-                if (btn) btn.style.display = '';
-            }
-
-            // Flow 1 receive: Schema Editor → TAFNE (load-diagram / load-netlist)
-            CwsBridge.onData(async function (envelope) {
-                var action = envelope?.hints?.action;
-                if (action !== 'load-diagram' && action !== 'load-netlist') return;
-                var raw;
-                try {
-                    raw = envelope.pointer
-                        ? await CwsBridge.getStore(envelope.pointer)
-                        : envelope.inline;
-                } catch (e) {
-                    $.toast({ heading: 'TAFNE', text: 'Failed to fetch diagram: ' + e.message, icon: 'error', loader: false, stack: false });
-                    return;
-                }
-                var data;
-                try { data = JSON.parse(raw); } catch (e) {
-                    $.toast({ heading: 'TAFNE', text: 'Bad JSON from Schema Editor', icon: 'error', loader: false, stack: false });
-                    return;
-                }
-                if ((data.schema === 'ginexys-diagram-v2' || data.schema === 'ginexys-diagram-v1') && typeof loadDiagramAsSheets === 'function') {
-                    loadDiagramAsSheets(data);
-                } else if (typeof loadNetlistAsSheets === 'function') {
-                    loadNetlistAsSheets(data);
-                }
-            });
-
-            // Flow 2 send: TAFNE → Schema Editor (back-annotate)
-            document.getElementById('backAnnotateBtn').addEventListener('click', async function () {
-                if (!CwsBridge.isEmbedded) {
-                    $.toast({ heading: 'TAFNE', text: 'Not embedded in OS Shell', icon: 'warning', loader: false, stack: false });
-                    return;
-                }
-                var compSheet = window.sheets && window.sheets.find(function (s) { return s.name === 'Components'; });
-                if (!compSheet) {
-                    $.toast({ heading: 'Back-annotate', text: 'No "Components" sheet found', icon: 'warning', loader: false, stack: false });
-                    return;
-                }
-                var prevId = window.activeSheetId;
-                if (prevId !== compSheet.id) switchSheet(compSheet.id);
-                var $tables = $('#tableContainer table');
-                if (!$tables.length) {
-                    $.toast({ heading: 'Back-annotate', text: 'Components sheet has no table', icon: 'warning', loader: false, stack: false });
-                    if (prevId && prevId !== compSheet.id) switchSheet(prevId);
-                    return;
-                }
-                var jsonStr = exportAsJson($tables);
-                if (prevId && prevId !== compSheet.id) switchSheet(prevId);
-                try {
-                    var pointerId = await CwsBridge.requestStore(jsonStr, 'json-data');
-                    CwsBridge.offerData(CwsContracts.createEnvelope({
-                        pointer: pointerId,
-                        contentType: 'json-data',
-                        metadata: { source: 'table-formatter' },
-                        hints: { suggestedTarget: 'svg_wiring', action: 'back-annotate' },
-                    }));
-                    $.toast({ heading: 'Back-annotate', text: 'Sent to Schema Editor', icon: 'success', loader: false, stack: false });
-                } catch (e) {
-                    $.toast({ heading: 'Back-annotate', text: 'Send failed: ' + e.message, icon: 'error', loader: false, stack: false });
-                }
-            });
-        })();
-    </script>
-    <script>
-        // Mode routing — path-based activation + URL sync on switch
-        (function () {
-            var p = location.pathname;
-
-            // On load: activate mode matching the current path
-            if (/\/node-editor\//.test(p)) {
-                var b = document.getElementById('nodeEditorToggle'); if (b) b.click();
-            } else if (/\/lab-mode\//.test(p)) {
-                var b = document.getElementById('labModeToggle'); if (b) b.click();
-            }
-
-            // On switch: keep URL in sync
-            var modeMap = {
-                'nodeEditorToggle': '/tools/table-formatter/node-editor/',
-                'labModeToggle': '/tools/table-formatter/lab-mode/',
-                'selectToolToggle': '/tools/table-formatter/table-mode/',
-                'neExit': '/tools/table-formatter/',
-            };
-            document.addEventListener('click', function (e) {
-                var btn = e.target.closest('button');
-                if (btn && modeMap[btn.id]) history.replaceState({}, '', modeMap[btn.id]);
-            });
-        })();
-    </script>
-
 </body>
 
 </html>
