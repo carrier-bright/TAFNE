@@ -100,7 +100,7 @@ class TableHistoryManager {
 
     updateHistoryButtons(id) {
         const historyState = this.histories[id] || null;
-        const undoCount = historyState ? historyState.currentIndex : 1;
+        const undoCount = historyState ? historyState.currentIndex : 0;
         const redoCount = historyState ? historyState.history.length - historyState.currentIndex - 1 : 0;
 
         $('.undoState').text(`${undoCount}`);
